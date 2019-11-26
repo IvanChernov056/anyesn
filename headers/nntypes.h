@@ -1,5 +1,5 @@
-#ifndef     TYPSE_H
-#define     TYPSE_H
+#ifndef     NN_TYPSE_H
+#define     NN_TYPSE_H
 
 
 #include    <armadillo>
@@ -15,5 +15,12 @@ using   Data   = Matrix;
 #include    <vector>
 
 using   DoubleContainer = std::vector<double>;
+using   ColumnContainer = std::vector<Column>;
+
+
+
+#include    <utility>
+
+using   DataSet = std::pair<Data, Data>;
 
 #endif

@@ -1,8 +1,15 @@
 #ifndef     UTILS_H
 #define     UTILS_H
 
+#include    "nntypes.h"
+#include    "nnfunctions.h"
 
-#include    "types.h"
+#include    <iostream>
+#include    <fstream>
+#include    <sstream>
+#include    <string>
+#include    <omp.h>
+
 
 #define     BASE_LOGGER(logger, msg) logger << msg << '\n'
 #define     INFO_LOG(msg)      BASE_LOGGER(std::cout, msg)
