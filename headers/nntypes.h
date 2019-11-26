@@ -23,4 +23,7 @@ using   ColumnContainer = std::vector<Column>;
 
 using   DataSet = std::pair<Data, Data>;
 
+
+using   Activation = double (*) (double );
+
 #endif
