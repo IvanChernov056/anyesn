@@ -5,12 +5,12 @@
 
 namespace   nn {
 
-    class   AbstractForwardUnit {
+    class   BasicForwardUnit {
 
         public:
 
-            AbstractForwardUnit(int i_neuronsNumber = 1) : d_neuronsNumber(i_neuronsNumber){}
-            virtual ~AbstractForwardUnit(){}
+            BasicForwardUnit(int i_neuronsNumber = 1) : d_neuronsNumber(i_neuronsNumber){}
+            virtual ~BasicForwardUnit(){}
 
             virtual Data    predict(const Data& i_input);
             virtual Data    predict2(const Column& i_initial, int i_predictHorizon);

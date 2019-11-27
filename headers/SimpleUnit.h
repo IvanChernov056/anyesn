@@ -5,10 +5,10 @@
 
 
 namespace nn {
-    class SimpleUnit : public AbstractForwardUnit {
+    class SimpleUnit : public BasicForwardUnit {
 
         public:
-            SimpleUnit(int i_neuronsNumber = 1, bool i_useBias = false, Activation i_func = nullptr);
+            explicit  SimpleUnit(int i_neuronsNumber, bool i_useBias = false, Activation i_func = nullptr);
             virtual ~SimpleUnit(){}
 
             virtual Column  operator()(const Column& i_input) override;

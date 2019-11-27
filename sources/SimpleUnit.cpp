@@ -4,7 +4,7 @@
 namespace nn {
 
     SimpleUnit::SimpleUnit(int i_neuronsNumber, bool i_useBias, Activation i_func) :
-        AbstractForwardUnit(i_neuronsNumber), d_useBias(i_useBias), d_activFunc(i_func)     
+        BasicForwardUnit(i_neuronsNumber), d_useBias(i_useBias), d_activFunc(i_func)     
     {
     }
 
