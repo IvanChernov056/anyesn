@@ -7,7 +7,7 @@
 
 namespace nn {
     namespace fn {
-        Data    formDataFromContainer(const ColumnContainer& i_container);
+        Matrix    makeMatrixFromContainer(const ColumnContainer& i_container);
     }
 }
 
