@@ -5,4 +5,7 @@
 //include all other headers
 #include    "BasicUnit.h"
 
+#include    "BasicLearnAlgorithm.h"
+#include    "RidgeRegressionAlgorithm.h"
+
 #endif

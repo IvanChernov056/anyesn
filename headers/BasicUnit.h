@@ -6,6 +6,8 @@
 
 namespace nn {
 
+    class   BasicLearnAlgorithm;
+
     class BasicUnit {
         public:
 
@@ -15,11 +17,17 @@ namespace nn {
             virtual bool init(const MultipleVector& i_initialInput);
             virtual Column  forward(const MultipleVector& i_initialInput);
 
-            //virtual bool learn(/*some param*/){return true;}
-            ////now i don't know how it sould be done.
+            virtual bool learn(BasicLearnAlgorithm* i_algorithm);
+            
 
         protected:
 
+            virtual Column  calcActivation(const MultipleVector& i_initialInput);
+
+
+
+            Column          d_bias;
+            Column          d_activation;
             MultipleWeight  d_weights;
             Activation      d_activFunc;
             int             d_neuronsAmount;
