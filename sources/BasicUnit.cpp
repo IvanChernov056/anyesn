@@ -51,9 +51,7 @@ namespace nn {
             if (weightIter != d_weights.end() || inputIter != i_input.end())
                 throw std::runtime_error ("sizes of inputs and weights list are different");
         } catch (std::exception& e) {
-            std::string except("calcAcltivation -> ");
-            except += e.what();
-            throw std::runtime_error(except);
+            THROW_FORWARD("calcAcltivation -> ", e);
         }
         return d_activation;
     }

@@ -1,16 +1,31 @@
 #include    "nnutils.h"
 
 
-// namespace nn {
-//     namespace fn {
-//         Data    formDataFromContainer(const ColumnContainer& i_container) {
-//             if (i_container.empty()) return Data();
 
-//             Data data(i_container[0]);
-//             for (auto it = i_container.begin()+1; it != i_container.end(); ++it)
-//                 data = arma::join_horiz (data, *it);
+namespace nn {
+    namespace fn {
+        Matrix    makeMatrixFromContainer(const ColumnContainer& i_container) {
+            Matrix  result(i_container[0].size(), 1);
+            try {
+                THROW_EMPTY(i_container);
+                CONCATINATE_LIST(horiz, i_container, result);
+            } catch (std::exception& e) {
+                THROW_FORWARD("makeMatrixFromContainer -> ", e);
+            }
             
-//             return data;
-//         }
-//     }
-// }
+            return result;
+        }
+
+        Column    uniteMultipeVector(const MultipleVector& i_inp) {
+            Column result;
+            try {
+                THROW_EMPTY(i_inp);
+                CONCATINATE_LIST(vert, i_inp, result);
+            } catch (std::exception& e) {
+                THROW_FORWARD("uniteMultipeVector -> ", e);
+            }
+            return result;
+        }
+
+    }
+}
