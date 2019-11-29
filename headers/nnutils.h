@@ -8,6 +8,7 @@
 #include    <fstream>
 #include    <sstream>
 #include    <string>
+#include    <memory>
 #include    <omp.h>
 
 #include    "timer.h"
