@@ -49,5 +49,32 @@ namespace nn {
         }
 
 
+        Matrix    makeMatrixFromMultipleData(const MultipleData& i_multiData) {
+            Matrix result;
+            try {
+                ColumnContainer longVectorList;
+                for (const auto& mulVec : i_multiData)
+                    longVectorList.push_back(uniteMultipeVector(mulVec));
+                result = makeMatrixFromContainer(longVectorList);
+            } catch (std::exception& e) {
+                THROW_FORWARD("makeMatrixFromMultipleData -> ", e);
+            }    
+            return result;
+        }
+
+        Matrix    makeCovarianceMatrix (const Matrix& i_inpMat) {
+            Matrix result = i_inpMat;
+            
+            Column  mean = MathVector(Column, zeros, i_inpMat.n_rows);
+            i_inpMat.each_col([&mean](const Column& v){mean += v;});
+            mean /= i_inpMat.n_cols;
+
+            result.each_col([&mean](Column& v){v -= mean;});
+
+            result = result*result.t();
+            return i_inpMat.n_cols > 1 ? result/(i_inpMat.n_cols-1) : result;
+        }
+
+
     }
 }

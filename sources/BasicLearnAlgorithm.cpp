@@ -3,10 +3,7 @@
 
 
 namespace nn {
-    BasicLearnAlgorithm::BasicLearnAlgorithm (const DataSet& i_learnSet) : d_dataSet(i_learnSet) {
-        
-    }
-
+   
     void BasicLearnAlgorithm::start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit){
         INFO_LOG("BaseLearnAlgorithm does not do anything");
     }

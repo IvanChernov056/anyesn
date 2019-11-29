@@ -15,7 +15,7 @@ namespace nn {
 
         private:
 
-
+            const DataSet& d_dataSet;
             double  d_ridge;
     };
 }

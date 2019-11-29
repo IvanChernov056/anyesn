@@ -44,6 +44,6 @@
 #define     PINV(SQ_MAT) arma::pinv(SQ_MAT)
 #define     INV_SYMPD(SQ_MAT) arma::inv_sympd(SQ_MAT)
 #define     NORM2(TENSOR) arma::norm(TENSOR)
-
+#define     EIGEN_SYM(VAL, VEC, MATRIX) arma::eig_sym(VAL, VEC, MATRIX)
 
 #endif

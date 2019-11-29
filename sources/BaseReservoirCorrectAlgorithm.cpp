@@ -3,10 +3,6 @@
 
 namespace nn {
     
-    BaseReservoirCorrectAlgorithm::BaseReservoirCorrectAlgorithm(const DataSet& i_fictitiousRef) 
-        : BasicLearnAlgorithm(i_fictitiousRef)
-    {
-    }
 
     void BaseReservoirCorrectAlgorithm::start(MultipleWeight& io_weights, Column& io_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit) {
         Column  mean = MathVector(Column, zeros, io_bias.n_elem);

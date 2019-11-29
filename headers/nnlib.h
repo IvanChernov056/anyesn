@@ -12,5 +12,6 @@
 #include    "BasicLearnAlgorithm.h"
 #include    "RidgeRegressionAlgorithm.h"
 #include    "BaseReservoirCorrectAlgorithm.h"
+#include    "PcaReduceAlgorithm.h"
 
 #endif

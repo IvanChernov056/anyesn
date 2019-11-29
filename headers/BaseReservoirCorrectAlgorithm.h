@@ -8,7 +8,7 @@ namespace nn {
         
         public:
 
-            BaseReservoirCorrectAlgorithm(const DataSet& i_fictitiousRef);
+            BaseReservoirCorrectAlgorithm(){}
             virtual ~BaseReservoirCorrectAlgorithm(){}
 
             virtual void start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit) override;
