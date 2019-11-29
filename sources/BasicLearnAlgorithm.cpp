@@ -7,10 +7,8 @@ namespace nn {
         
     }
 
-    void BasicLearnAlgorithm::start(MultipleWeight& i_weights, Column& d_bias, const Column& d_activation, BasicUnit *i_unit){
-        INFO_LOG("\nbefore forward :\n" << d_activation);
-        Column a = i_unit->forward(d_dataSet.first[0]);
-        INFO_LOG("\nafter forward :\n" << d_activation);
+    void BasicLearnAlgorithm::start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit){
+        INFO_LOG("BaseLearnAlgorithm does not do anything");
     }
 
 }

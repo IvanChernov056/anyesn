@@ -11,7 +11,7 @@ namespace nn {
         public:
             RidgeRegressionAlgorithm (const DataSet& i_learnSet, double i_ridge = 0.03);
             virtual ~RidgeRegressionAlgorithm(){}
-            virtual void start(MultipleWeight& i_weight, Column& d_bias, const Column& d_activation, BasicUnit *i_unit) override;
+            virtual void start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit) override;
 
         private:
 

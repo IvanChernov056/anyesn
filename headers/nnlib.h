@@ -3,8 +3,12 @@
 
 
 //include all other headers
-#include    "BasicUnit.h"
 
+//units:
+#include    "BasicUnit.h"
+#include    "BasicReservoir.h"
+
+//algorithms:
 #include    "BasicLearnAlgorithm.h"
 #include    "RidgeRegressionAlgorithm.h"
 

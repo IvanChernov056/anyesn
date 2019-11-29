@@ -8,7 +8,7 @@ namespace nn {
         public:
             BasicLearnAlgorithm (const DataSet& i_learnSet);
             virtual ~BasicLearnAlgorithm(){}
-            virtual void start(MultipleWeight& i_weight, Column& d_bias, const Column& d_activation, BasicUnit *i_unit);
+            virtual void start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit);
         
         protected:
 

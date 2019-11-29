@@ -8,7 +8,10 @@ namespace nn {
     {    
     }
 
-    void RidgeRegressionAlgorithm::start(MultipleWeight& i_weight, Column& i_bias, const Column& i_activation, BasicUnit *i_unit) {
+    void RidgeRegressionAlgorithm::start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit) {
+        if (d_dataSet.first.empty() || d_dataSet.second.empty())
+            throw std::runtime_error("RidgeRegressionAlgorithm::start -> empty dataSet");
+
         Matrix  matrixY = fn::makeMatrixFromContainer(d_dataSet.second);
         ColumnContainer conteinerX;
         
@@ -20,23 +23,8 @@ namespace nn {
 
         Matrix  matrixW = matrixY*matrixS.t()*INV_SYMPD(matrixS*matrixS.t() + d_ridge*EYE(matrixS.n_rows));
 
-        std::vector<int> sizes;
-        for (auto& v : d_dataSet.first[0]) 
-            sizes.push_back(v.size());
-        
-        INFO_LOG("W:\n" << matrixW);
-        int leftPoint = 0;
-        int rightPoint = 0;
-        for (int i = 0; i < sizes.size(); ++i) {
-            rightPoint += sizes[i];
-            i_weight[i] = matrixW.cols(leftPoint, rightPoint-1);
-            leftPoint += sizes[i];
-        }
-        i_bias = matrixW.col(matrixW.n_cols-1);
-
-        for(auto& w : i_weight)
-            INFO_LOG("mat :\n" << w);
-        INFO_LOG("bias :\n" << i_bias);
+        fn::splitMatrixToMuliple(o_weights, matrixW, d_dataSet.first[0]);
+        o_bias = matrixW.col(matrixW.n_cols-1);
     }
 
 }

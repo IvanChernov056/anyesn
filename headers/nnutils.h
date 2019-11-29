@@ -43,5 +43,7 @@
 #define     INV(SQ_MAT) arma::inv(SQ_MAT)
 #define     PINV(SQ_MAT) arma::pinv(SQ_MAT)
 #define     INV_SYMPD(SQ_MAT) arma::inv_sympd(SQ_MAT)
+#define     NORM2(TENSOR) arma::norm(TENSOR)
+
 
 #endif
