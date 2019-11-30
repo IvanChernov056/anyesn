@@ -34,8 +34,7 @@ namespace nn {
     }
 
     DataSet DataSetLoader::form(int i_setLenght, int i_startPoint) {
-        MultipleData inputSet;
-        SingleData  etalonSet;
+        SingleData  etalonSet,  inputSet;
 
         try {
             if (!d_fileExist) throw std::runtime_error("file does not exist");
@@ -46,7 +45,7 @@ namespace nn {
             Column  inpVec(d_inputSize), outVec(d_outputSize);
             for (int line = 0; line < i_setLenght; ++line) {
                 readLine(file, inpVec, outVec);
-                inputSet.push_back({inpVec});
+                inputSet.push_back(inpVec);
                 etalonSet.push_back(outVec);
                 if(file.eof()) break;
             }

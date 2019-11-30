@@ -25,7 +25,8 @@ using   ColumnContainer = std::vector<Column>;
 
 
 
-using   DataSet = std::pair<MultipleData, SingleData>;
+using   DataSet = std::pair<SingleData, SingleData>;
+using   MultipleDataSet = std::pair<MultipleData, SingleData>;
 
 
 using   Activation = double (*) (double );

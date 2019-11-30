@@ -51,7 +51,7 @@ namespace nn {
             if (weightIter != d_inputWeights.end() || inputIter != i_inputSignales.end())
                 throw std::runtime_error ("sizes of inputs and weights list are different");
         } catch (std::exception& e) {
-            THROW_FORWARD("calcAcltivation -> ", e);
+            THROW_FORWARD("totalIncomingSignal -> ", e);
         }
         return d_totalIncomingSignal;
     }

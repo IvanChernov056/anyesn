@@ -85,5 +85,15 @@ namespace nn {
             }
         }
    
+    MultipleData zip(const SingleData& i_inp1, const SingleData& i_inp2) {
+        MultipleData result;
+        auto it1 = i_inp1.begin();
+        auto it2 = i_inp2.begin();
+        for (;it1 != i_inp1.end() && it2!=i_inp2.end(); ++it1, ++it2)
+            result.push_back({*it1, *it2});
+        return result;
+    }
+
+
     }
 }

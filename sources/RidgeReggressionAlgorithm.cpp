@@ -3,7 +3,7 @@
 
 namespace nn {
 
-    RidgeRegressionAlgorithm::RidgeRegressionAlgorithm (const DataSet& i_dataSet, double i_ridge)
+    RidgeRegressionAlgorithm::RidgeRegressionAlgorithm (const MultipleDataSet& i_dataSet, double i_ridge)
         :  d_ridge(i_ridge), d_dataSet(i_dataSet)    
     {    
     }

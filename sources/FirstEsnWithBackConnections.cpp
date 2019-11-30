@@ -14,11 +14,20 @@ namespace nn {
         delete initialCrrection;
     }
 
-    void    FirstEsnWithBackConnections::start(const MultipleData& i_skipData, const DataSet& i_learnSet, const DataSet& i_testSet) {
+    void    FirstEsnWithBackConnections::start(const MultipleData& i_skipData, const MultipleDataSet& i_learnSet, const DataSet& i_testSet) {
+        INFO_LOG("init");
         this->init(i_skipData[0]);
+        
+        INFO_LOG("skip");
         this->skip(i_skipData);
+        
+        INFO_LOG("learn");
         this->learn(i_learnSet);
+        
+        INFO_LOG("test");
         this->test(i_testSet);
+
+        INFO_LOG("end");
     }
 
     SingleVector    FirstEsnWithBackConnections::initUnit(const MultipleVector& i_initialUnit, BasicUnit* o_unit) {
@@ -39,7 +48,7 @@ namespace nn {
     }
 
     void    FirstEsnWithBackConnections::createUnits() {
-        d_readout = new BasicUnit(1);
+        d_readout = new BasicUnit(2);
         d_reservoir = new BasicReservoir(10);
     }
 
@@ -54,11 +63,12 @@ namespace nn {
             d_reservoir->forward(mpV);
     }
 
-    void    FirstEsnWithBackConnections::learn(const DataSet& i_dataSet) {
-        MultipleData readoutsInput;
+    void    FirstEsnWithBackConnections::learn(const MultipleDataSet& i_dataSet) {
+        MultipleData resOut;
         for(const auto& mpV : i_dataSet.first)
-            readoutsInput.push_back({d_reservoir->forward(mpV)});
-        AlgorithmPtr ridgeAlg = new RidgeRegressionAlgorithm({readoutsInput, i_dataSet.second});
+            resOut.push_back({d_reservoir->forward(mpV)});
+        MultipleDataSet mulData={resOut, i_dataSet.second};
+        AlgorithmPtr ridgeAlg = new RidgeRegressionAlgorithm(mulData);
         learnUnit(ridgeAlg, d_readout);
         delete ridgeAlg;
         d_etalonForInitPrediction = *(i_dataSet.second.end()-1);
@@ -68,12 +78,8 @@ namespace nn {
         Column  backOut = d_etalonForInitPrediction;
         SingleData  result;
         for(const auto& mpV : i_dataSet.first) {
-            MultipleVector  resInp = mpV;
-            MultipleVector  rdoutInp;
-            
-            resInp.push_back(backOut);
-            rdoutInp = {d_reservoir->forward(resInp)};
-            backOut = d_readout->forward(rdoutInp);
+            auto resOut = d_reservoir->forward({mpV, backOut});
+            backOut = d_readout->forward({resOut});
             result.push_back(backOut);
         }
     }

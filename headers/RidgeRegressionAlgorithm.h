@@ -9,13 +9,13 @@ namespace nn {
     class RidgeRegressionAlgorithm : public BasicLearnAlgorithm {
 
         public:
-            RidgeRegressionAlgorithm (const DataSet& i_learnSet, double i_ridge = 0.03);
+            RidgeRegressionAlgorithm (const MultipleDataSet& i_learnSet, double i_ridge = 0.03);
             virtual ~RidgeRegressionAlgorithm(){}
             virtual void start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit) override;
 
         private:
 
-            const DataSet& d_dataSet;
+            const MultipleDataSet& d_dataSet;
             double  d_ridge;
     };
 }

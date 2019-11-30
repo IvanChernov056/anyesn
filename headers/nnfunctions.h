@@ -14,6 +14,7 @@ namespace nn {
         void      bindSingleToMultiple(SingleData& i_singlesList, MultipleData& io_mulData);
         void      splitMatrixToMuliple (MultipleWeight& o_multiWeight, const Matrix& i_toSplit, const std::vector<int>& i_range);
         void      splitMatrixToMuliple (MultipleWeight& o_multiWeight, const Matrix& i_toSplit, const MultipleVector& i_rangeVector);
+        MultipleData zip(const SingleData& i_inp1, const SingleData& i_inp2);
     }
 }
 
