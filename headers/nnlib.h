@@ -14,4 +14,7 @@
 #include    "BaseReservoirCorrectAlgorithm.h"
 #include    "PcaReduceAlgorithm.h"
 
+//loader
+#include    "DataSetLoader.h"
+
 #endif
