@@ -75,6 +75,15 @@ namespace nn {
             return i_inpMat.n_cols > 1 ? result/(i_inpMat.n_cols-1) : result;
         }
 
-
+        void      bindSingleToMultiple(const SingleData& i_singlesList, MultipleData& io_mulData) {
+            auto mulIetr = io_mulData.begin();
+            auto singIter = i_singlesList.begin();
+            for(; mulIetr!=io_mulData.end() && singIter!=i_singlesList.end(); 
+                    ++mulIetr, ++singIter)
+            {
+                mulIetr->push_back(*singIter);
+            }
+        }
+   
     }
 }
