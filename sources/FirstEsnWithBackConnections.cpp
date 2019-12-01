@@ -49,7 +49,7 @@ namespace nn {
 
     void    FirstEsnWithBackConnections::createUnits() {
         d_readout = new BasicUnit(2);
-        d_reservoir = new BasicReservoir(400);
+        d_reservoir = new BasicReservoir(10, 0.02, 0.9, [](double x)->double {return 1.0/ (1.0 + exp(-x));});
     }
 
     void    FirstEsnWithBackConnections::deleteUnits() {
@@ -65,10 +65,12 @@ namespace nn {
 
     void    FirstEsnWithBackConnections::learn(const MultipleDataSet& i_dataSet) {
         MultipleData resOut;
+        Column  zero = MathVector(Column, zeros, i_dataSet.second[0].n_elem);
         for(const auto& mpV : i_dataSet.first)
-            resOut.push_back({d_reservoir->forward(mpV)});
+            // resOut.push_back({d_reservoir->forward(mpV)});
+            resOut.push_back({d_reservoir->forward({mpV[0], zero})});
         MultipleDataSet mulData={resOut, i_dataSet.second};
-        AlgorithmPtr ridgeAlg = new RidgeRegressionAlgorithm(mulData);
+        AlgorithmPtr ridgeAlg = new RidgeRegressionAlgorithm(mulData, 0.625);
         learnUnit(ridgeAlg, d_readout);
         delete ridgeAlg;
         d_etalonForInitPrediction = *(i_dataSet.second.end()-1);
@@ -76,9 +78,10 @@ namespace nn {
 
     void    FirstEsnWithBackConnections::test(const DataSet& i_dataSet) {
         Column  backOut = d_etalonForInitPrediction;
+        Column  zero = MathVector(Column, zeros, backOut.n_elem);
         SingleData  result;
         for(const auto& mpV : i_dataSet.first) {
-            auto resOut = d_reservoir->forward({mpV, backOut});
+            auto resOut = d_reservoir->forward({mpV, zero});
             backOut = d_readout->forward({resOut});
             result.push_back(backOut);
         }

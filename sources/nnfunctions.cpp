@@ -107,6 +107,8 @@ namespace nn {
         SingleVector avrgEtalon = average(i_etalon);
         DoubleContainer numeratorList, denumeratorList;
 
+        DEBUG_LOG("avrg:\n"<<avrgEtalon);
+
         auto predIter = i_predicted.begin();
         auto etalIter = i_etalon.begin();
         for (;predIter!=i_predicted.end() && etalIter!=i_etalon.end(); ++predIter, ++etalIter) {

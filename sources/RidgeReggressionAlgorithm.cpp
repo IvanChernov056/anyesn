@@ -25,6 +25,12 @@ namespace nn {
 
         fn::splitMatrixToMuliple(o_weights, matrixW, d_dataSet.first[0]);
         o_bias = matrixW.col(matrixW.n_cols-1);
+        
+        DEBUG_LOG("ridge W:\n" << matrixW);
+        DEBUG_LOG("ridge B:\n" << o_bias);
+
+        for (auto w: o_weights)
+            DEBUG_LOG("ridge w:\n" << w);
     }
 
 }
