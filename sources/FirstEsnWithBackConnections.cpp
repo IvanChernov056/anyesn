@@ -49,7 +49,7 @@ namespace nn {
 
     void    FirstEsnWithBackConnections::createUnits() {
         d_readout = new BasicUnit(2);
-        d_reservoir = new BasicReservoir(10);
+        d_reservoir = new BasicReservoir(400);
     }
 
     void    FirstEsnWithBackConnections::deleteUnits() {

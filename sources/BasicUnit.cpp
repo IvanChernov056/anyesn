@@ -40,6 +40,7 @@ namespace nn {
     }
 
     const Column&  BasicUnit::totalIncomingSignal(const MultipleVector& i_inputSignales) {
+        d_totalIncomingSignal = MathVector(Column, zeros, d_bias.n_elem);
         try {
             auto weightIter = d_inputWeights.begin();
             auto inputIter = i_inputSignales.begin();
