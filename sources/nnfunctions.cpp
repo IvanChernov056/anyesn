@@ -96,7 +96,7 @@ namespace nn {
 
     double    squaredEuclideanNorom (const Column& i_inp) {
         double  nrm = 0;
-        i_inp.for_each([&nrm](double x){nrm += x;});
+        i_inp.for_each([&nrm](double x){nrm += x*x;});
         return nrm;
     }
 
