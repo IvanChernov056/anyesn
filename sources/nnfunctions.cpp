@@ -94,6 +94,36 @@ namespace nn {
         return result;
     }
 
+    double    squaredEuclideanNorom (const Column& i_inp) {
+        double  nrm = 0;
+        i_inp.for_each([&nrm](double x){nrm += x;});
+        return nrm;
+    }
+
+    double    nrmse (const SingleData& i_predicted, const SingleData& i_etalon) {
+        if (i_predicted.size() < i_etalon.size())
+            throw std::runtime_error("nrmse -> not enough etalon data");
+        
+        SingleVector avrgEtalon = average(i_etalon);
+        DoubleContainer numeratorList, denumeratorList;
+
+        auto predIter = i_predicted.begin();
+        auto etalIter = i_etalon.begin();
+        for (;predIter!=i_predicted.end() && etalIter!=i_etalon.end(); ++predIter, ++etalIter) {
+            numeratorList.push_back(squaredEuclideanNorom(*predIter - *etalIter));
+            denumeratorList.push_back(squaredEuclideanNorom(*predIter - avrgEtalon));
+        }
+
+        double numerator = average(numeratorList);
+        double denumerator = average(denumeratorList);
+
+        if (denumerator <= 0)
+            throw std::runtime_error("nrmse -> prediction failed or input data did not have any difference");
+        
+        return sqrt(numerator / denumerator);
+    }
+
+
 
     }
 }

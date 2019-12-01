@@ -82,6 +82,8 @@ namespace nn {
             backOut = d_readout->forward({resOut});
             result.push_back(backOut);
         }
+
+        INFO_LOG("error : " << fn::nrmse(result, i_dataSet.second));
     }
 
 }
