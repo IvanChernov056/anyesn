@@ -13,7 +13,7 @@ namespace nn {
             explicit PcaReducAlgorithm(const MultipleData& i_inputData, int i_outDimention = -1);            
             virtual ~PcaReducAlgorithm(){}
 
-            virtual void start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit) override;
+            virtual void start(MultipleWeight& o_weights, Column& o_bias, Column& i_totalIncomingSignal, BasicUnit *i_unit) override;
         
         protected:
 

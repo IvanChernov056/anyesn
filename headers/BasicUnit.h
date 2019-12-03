@@ -20,10 +20,10 @@ namespace nn {
             virtual bool learn(BasicLearnAlgorithm* i_algorithm);
             
 
-        protected:
-
             virtual const Column&  totalIncomingSignal(const MultipleVector& i_inputSignales);
 
+
+        protected:
 
 
             Column          d_bias;
@@ -31,6 +31,8 @@ namespace nn {
             MultipleWeight  d_inputWeights;
             Activation      d_activFunc;
             int             d_neuronsAmount;
+
+        // friend class InfoMaxOneAlgorithm;
     };
 }
 

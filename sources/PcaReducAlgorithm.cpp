@@ -6,7 +6,7 @@ namespace nn {
     {
     }            
 
-    void PcaReducAlgorithm::start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit) {
+    void PcaReducAlgorithm::start(MultipleWeight& o_weights, Column& o_bias, Column& i_totalIncomingSignal, BasicUnit *i_unit) {
         Matrix  inputMatrix = fn::makeMatrixFromMultipleData(d_inputData);
         inputMatrix = CONCATINATE(vert, inputMatrix, MathVector(Row, ones, inputMatrix.n_cols));
         Matrix  covMatrix = fn::makeCovarianceMatrix(inputMatrix);

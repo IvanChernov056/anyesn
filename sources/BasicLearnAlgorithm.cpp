@@ -4,7 +4,7 @@
 
 namespace nn {
    
-    void BasicLearnAlgorithm::start(MultipleWeight& io_weights, Column& io_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit){
+    void BasicLearnAlgorithm::start(MultipleWeight& io_weights, Column& io_bias, Column& i_totalIncomingSignal, BasicUnit *i_unit){
         Column  mean = MathVector(Column, zeros, io_bias.n_elem);
         int colNumber = 0;
         for (auto& w : io_weights) {

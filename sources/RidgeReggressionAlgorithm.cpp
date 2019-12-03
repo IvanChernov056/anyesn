@@ -8,7 +8,7 @@ namespace nn {
     {    
     }
 
-    void RidgeRegressionAlgorithm::start(MultipleWeight& o_weights, Column& o_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit) {
+    void RidgeRegressionAlgorithm::start(MultipleWeight& o_weights, Column& o_bias, Column& i_totalIncomingSignal, BasicUnit *i_unit) {
         if (d_dataSet.first.empty() || d_dataSet.second.empty())
             throw std::runtime_error("RidgeRegressionAlgorithm::start -> empty dataSet");
 

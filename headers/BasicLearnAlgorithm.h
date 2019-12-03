@@ -8,7 +8,7 @@ namespace nn {
         public:
             BasicLearnAlgorithm (){}
             virtual ~BasicLearnAlgorithm(){}
-            virtual void start(MultipleWeight& io_weights, Column& io_bias, const Column& i_totalIncomingSignal, BasicUnit *i_unit);
+            virtual void start(MultipleWeight& io_weights, Column& io_bias, Column& io_totalIncomingSignal, BasicUnit *i_unit);
     };
 }
 
