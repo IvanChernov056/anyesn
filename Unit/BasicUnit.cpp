@@ -29,14 +29,14 @@ namespace nn {
     }
 
     Column  BasicUnit::forward(const MultipleVector& i_inputSignales) {
-        Column  result = MathVector(Column, zeros, d_neuronsAmount);
         try {
-            result = totalIncomingSignal(i_inputSignales) + d_bias;
+            totalIncomingSignal(i_inputSignales);
+            return out();
         } catch (std::exception& e) {
             THROW_FORWARD("BaseUnit::forward -> ", e);
         }
 
-        return d_activFunc ? result.transform(d_activFunc) : result;
+        return {};
     }
 
     const Column&  BasicUnit::totalIncomingSignal(const MultipleVector& i_inputSignales) {
@@ -55,6 +55,11 @@ namespace nn {
             THROW_FORWARD("totalIncomingSignal -> ", e);
         }
         return d_totalIncomingSignal;
+    }
+
+    Column  BasicUnit::out() {
+        Column result = d_totalIncomingSignal + d_bias;
+        return d_activFunc ? result.transform(d_activFunc) : result;
     }
 
     bool BasicUnit::learn(BasicLearnAlgorithm* i_algorithm) {

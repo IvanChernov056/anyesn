@@ -21,6 +21,8 @@ namespace nn {
         Matrix  matrixX = fn::makeMatrixFromContainer(conteinerX);
         Matrix  matrixS = CONCATINATE(vert, matrixX, MathVector(Row, ones, matrixX.n_cols));
 
+        DEBUG_LOG("input\n" << matrixS.col(0));
+
         Matrix  matrixW = matrixY*matrixS.t()*INV_SYMPD(matrixS*matrixS.t() + d_ridge*EYE(matrixS.n_rows));
 
         fn::splitMatrixToMuliple(o_weights, matrixW, d_dataSet.first[0]);

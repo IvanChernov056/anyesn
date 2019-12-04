@@ -21,7 +21,7 @@ namespace nn {
             
 
             virtual const Column&  totalIncomingSignal(const MultipleVector& i_inputSignales);
-
+            virtual Column  out();
 
         protected:
 

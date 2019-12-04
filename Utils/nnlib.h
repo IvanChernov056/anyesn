@@ -12,6 +12,7 @@
 #include    "BasicLearnAlgorithm.h"
 #include    "RidgeRegressionAlgorithm.h"
 #include    "PcaReduceAlgorithm.h"
+#include    "InfoMaxOneAlgorithm.h"
 
 //loader
 #include    "DataSetLoader.h"

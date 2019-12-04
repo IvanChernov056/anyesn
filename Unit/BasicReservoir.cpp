@@ -14,9 +14,8 @@ namespace nn {
 
     Column  BasicReservoir::forward(const MultipleVector& i_inputSignales) {
         try {
-            d_state = this->totalIncomingSignal(i_inputSignales) + d_bias;
-            // DEBUG_LOG("res state: " << d_state.min() << '\t' << d_state.max());
-            if (d_activFunc) d_state.transform(d_activFunc);
+            this->totalIncomingSignal(i_inputSignales);
+            d_state = this->out();
         } catch (std::exception& e) {
             THROW_FORWARD("BasicReservoir::forward -> ", e);
         }

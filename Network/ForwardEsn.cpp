@@ -55,37 +55,37 @@ namespace nn {
 }
 
 
-int main (int argc, char* argv[]) {
+// int main (int argc, char* argv[]) {
 
     
     
-    try{
-        nn::UnitsList units 
-            {
-               new nn::BasicReservoir(400, 0.03, 1.2, [](double x)->double{return 1.0/(1+exp(-x));}),
-               new nn::BasicUnit(1)
-            };
+//     try{
+//         nn::UnitsList units 
+//             {
+//                new nn::BasicReservoir(400, 0.03, 1.2, [](double x)->double{return 1.0/(1+exp(-x));}),
+//                new nn::BasicUnit(1)
+//             };
         
-        nn::ForwardEsn net(units);
+//         nn::ForwardEsn net(units);
 
-        nn::DataSetLoader   loader(argv[1]);
-        DataSet skipDs = loader.form(1500);
-        DataSet learnDs = loader.form(2000);
-        DataSet testDs = loader.form(200);
+//         nn::DataSetLoader   loader(argv[1]);
+//         DataSet skipDs = loader.form(1500);
+//         DataSet learnDs = loader.form(2000);
+//         DataSet testDs = loader.form(200);
 
-        MultipleData skipMul;
-        for (const auto& v: skipDs.first)
-            skipMul.push_back({v});
+//         MultipleData skipMul;
+//         for (const auto& v: skipDs.first)
+//             skipMul.push_back({v});
 
-        MultipleData learnMul;
-        for (const auto& v: learnDs.first)
-            learnMul.push_back({v});
-        MultipleDataSet learnMulDs{learnMul, learnDs.second};
+//         MultipleData learnMul;
+//         for (const auto& v: learnDs.first)
+//             learnMul.push_back({v});
+//         MultipleDataSet learnMulDs{learnMul, learnDs.second};
 
-        net.start(skipMul, learnMulDs, testDs);
+//         net.start(skipMul, learnMulDs, testDs);
         
-    } catch (std:: exception& e) {
-        ERROR_LOG(e.what());
-    }
-    return 0;
-}
+//     } catch (std:: exception& e) {
+//         ERROR_LOG(e.what());
+//     }
+//     return 0;
+// }
