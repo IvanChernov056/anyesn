@@ -4,7 +4,7 @@
 namespace nn {
 
     BasicReservoir::BasicReservoir (int i_neuronsAmount, double i_density, double i_radius, Activation i_func) 
-        : BasicUnit(i_neuronsAmount, i_func), d_state(MathVector(Column, zeros, i_neuronsAmount))
+        : BasicUnit(i_neuronsAmount, i_func), d_state(MathVector(Column, zeros, i_neuronsAmount)), d_leakRate(0.85)
     {
         d_recurMatrix = RandnSpMatrix(d_neuronsAmount, d_neuronsAmount, i_density);
         double  norm = NORM2(d_recurMatrix);
@@ -15,7 +15,7 @@ namespace nn {
     Column  BasicReservoir::forward(const MultipleVector& i_inputSignales) {
         try {
             this->totalIncomingSignal(i_inputSignales);
-            d_state = this->out();
+            d_state = (1-d_leakRate)*d_state + d_leakRate*this->out();
         } catch (std::exception& e) {
             THROW_FORWARD("BasicReservoir::forward -> ", e);
         }

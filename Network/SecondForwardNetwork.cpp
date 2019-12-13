@@ -50,8 +50,8 @@ namespace nn {
     }
     
     void    SecondForwardEsn::learn(const MultipleDataSet& i_dataSet) {
-        AlgorithmPtr infomax(new InfoMaxOneAlgorithm(i_dataSet.first));
-        d_reservoir->learn(infomax.get());
+        AlgorithmPtr infomax(new InfoMaxOneAlgorithm(i_dataSet.first, 10, 0.04));
+        // d_reservoir->learn(infomax.get());
 
         MultipleData resOut;
         for(const auto& mpV : i_dataSet.first)
@@ -88,16 +88,16 @@ int main (int argc, char* argv[]) {
     try{
         nn::UnitsList units 
             {
-               new nn::BasicReservoir(10, 0.03, 1.2, [](double x)->double{return 1.0/(1+exp(-x));}),
+               new nn::BasicReservoir(400, 0.03, 1.2, [](double x)->double{return 1.0/(1+exp(-x));}),
                new nn::BasicUnit(1)
             };
         
         nn::SecondForwardEsn net(units);
 
         nn::DataSetLoader   loader(argv[1]);
-        DataSet skipDs = loader.form(15);
-        DataSet learnDs = loader.form(200);
-        DataSet testDs = loader.form(2);
+        DataSet skipDs = loader.form(150);
+        DataSet learnDs = loader.form(2000);
+        DataSet testDs = loader.form(400);
 
         MultipleData skipMul;
         for (const auto& v: skipDs.first)

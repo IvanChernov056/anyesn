@@ -21,11 +21,15 @@ namespace nn {
         Matrix  matrixX = fn::makeMatrixFromContainer(conteinerX);
         Matrix  matrixS = CONCATINATE(vert, matrixX, MathVector(Row, ones, matrixX.n_cols));
 
-        DEBUG_LOG("input\n" << matrixS.col(0));
+        DEBUG_LOG("ridge: " << d_ridge << ", S : " << NORM2(matrixS) <<
+                                        ", X : " << NORM2(matrixX) <<
+                                        ", Y : " << NORM2(matrixY));
 
         Matrix  matrixW = matrixY*matrixS.t()*INV_SYMPD(matrixS*matrixS.t() + d_ridge*EYE(matrixS.n_rows));
+        DEBUG_LOG("?1");
 
         fn::splitMatrixToMuliple(o_weights, matrixW, d_dataSet.first[0]);
+        DEBUG_LOG("?2");
         o_bias = matrixW.col(matrixW.n_cols-1);
         
         DEBUG_LOG("ridge W:\n" << matrixW);

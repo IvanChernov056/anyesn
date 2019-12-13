@@ -31,10 +31,14 @@ namespace nn {
             try {
                 int leftPoint = 0;
                 int rightPoint = 0;
+                DEBUG_LOG("???");
                 for (int i = 0; i < i_range.size(); ++i) {
+                    DEBUG_LOG("??>"<<i);
                     rightPoint += i_range[i];
+                    DEBUG_LOG("left point: " << leftPoint << ", rihght : " << rightPoint);
                     o_multiWeight[i] = i_toSplit.cols(leftPoint, rightPoint-1);
                     leftPoint += i_range[i];
+                    DEBUG_LOG("??<"<<i);
                 }    
             } catch (std::exception& e) {
                 THROW_FORWARD("splitMatrixToMuliple -> ", e);
@@ -45,6 +49,7 @@ namespace nn {
             std::vector<int> range;
             for (auto& v : i_rangeVector) 
                 range.push_back(v.size());
+            DEBUG_LOG("??");
             splitMatrixToMuliple(o_multiWeight, i_toSplit, range);
         }
 

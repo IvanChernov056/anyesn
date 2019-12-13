@@ -22,6 +22,7 @@ namespace nn {
 
             SpMatrix    d_recurMatrix;
             Column      d_state;
+            double		d_leakRate;
     };
 }
 

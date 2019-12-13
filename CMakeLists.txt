@@ -1,14 +1,15 @@
 project(Perc)
 cmake_minimum_required(VERSION 3.2)
+#-fopenmp -fsanitize=address -fsanitize-recover=address
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -fopenmp -fsanitize=address -fsanitize-recover=address")
 set(CMAKE_BUILD_TYPE Debug)
 set(EXECUTABLE_NAME "ESN")
 set(MY_INCLUDES Algorithm Network Unit Utils)
 file(GLOB SRC
-    "sources/*.cpp",
-    "Algorithm/*.cpp",
-    "Network/*.cpp",
-    "Unit/*.cpp",
+    "sources/*.cpp"
+    "Algorithm/*.cpp"
+    "Network/*.cpp"
+    "Unit/*.cpp"
     "Utils/*.cpp"
 )
 
