@@ -17,7 +17,15 @@ namespace nn {
         MultipleData zip(const SingleData& i_inp1, const SingleData& i_inp2);
         double    squaredEuclideanNorom (const Column& i_inp);
         double    nrmse (const SingleData& i_predicted, const SingleData& i_etalon);
-
+        void      plot(const SingleData& i_plotData, const std::string& i_plotFile, const std::string& i_settinsgFile = "./Plot/default_settings.plt");
+        
+        template<class Vec>
+        void      printVectorToFile (const Vec& i_vec, std::ostream& o_os) {
+            i_vec.for_each([&o_os](double x) {
+                o_os << x << '\t';
+            });
+            o_os << '\n';
+        }
 
         template<class T>
         T   average (const std::vector<T>& i_list) {

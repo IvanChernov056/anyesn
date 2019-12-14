@@ -3,7 +3,7 @@
 
 namespace nn {
 
-    InfoMaxOneAlgorithm::InfoMaxOneAlgorithm(const MultipleData& i_data, int i_iterations, double i_learnSpead) 
+    InfoMaxOneAlgorithm::InfoMaxOneAlgorithm(const MultipleData& i_data, int i_iterations, double i_learnSpead)
         : d_data(i_data), d_iterations(i_iterations), d_learnSpead(i_learnSpead)
     {
     }

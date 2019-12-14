@@ -31,14 +31,10 @@ namespace nn {
             try {
                 int leftPoint = 0;
                 int rightPoint = 0;
-                DEBUG_LOG("???");
                 for (int i = 0; i < i_range.size(); ++i) {
-                    DEBUG_LOG("??>"<<i);
                     rightPoint += i_range[i];
-                    DEBUG_LOG("left point: " << leftPoint << ", rihght : " << rightPoint);
                     o_multiWeight[i] = i_toSplit.cols(leftPoint, rightPoint-1);
                     leftPoint += i_range[i];
-                    DEBUG_LOG("??<"<<i);
                 }    
             } catch (std::exception& e) {
                 THROW_FORWARD("splitMatrixToMuliple -> ", e);
@@ -49,7 +45,6 @@ namespace nn {
             std::vector<int> range;
             for (auto& v : i_rangeVector) 
                 range.push_back(v.size());
-            DEBUG_LOG("??");
             splitMatrixToMuliple(o_multiWeight, i_toSplit, range);
         }
 
@@ -90,47 +85,60 @@ namespace nn {
             }
         }
    
-    MultipleData zip(const SingleData& i_inp1, const SingleData& i_inp2) {
-        MultipleData result;
-        auto it1 = i_inp1.begin();
-        auto it2 = i_inp2.begin();
-        for (;it1 != i_inp1.end() && it2!=i_inp2.end(); ++it1, ++it2)
-            result.push_back({*it1, *it2});
-        return result;
-    }
-
-    double    squaredEuclideanNorom (const Column& i_inp) {
-        double  nrm = 0;
-        i_inp.for_each([&nrm](double x){nrm += x*x;});
-        return nrm;
-    }
-
-    double    nrmse (const SingleData& i_predicted, const SingleData& i_etalon) {
-        if (i_predicted.size() < i_etalon.size())
-            throw std::runtime_error("nrmse -> not enough etalon data");
-        
-        SingleVector avrgEtalon = average(i_etalon);
-        DoubleContainer numeratorList, denumeratorList;
-
-        DEBUG_LOG("avrg:\n"<<avrgEtalon);
-
-        auto predIter = i_predicted.begin();
-        auto etalIter = i_etalon.begin();
-        for (;predIter!=i_predicted.end() && etalIter!=i_etalon.end(); ++predIter, ++etalIter) {
-            numeratorList.push_back(squaredEuclideanNorom(*predIter - *etalIter));
-            denumeratorList.push_back(squaredEuclideanNorom(*predIter - avrgEtalon));
+        MultipleData zip(const SingleData& i_inp1, const SingleData& i_inp2) {
+            MultipleData result;
+            auto it1 = i_inp1.begin();
+            auto it2 = i_inp2.begin();
+            for (;it1 != i_inp1.end() && it2!=i_inp2.end(); ++it1, ++it2)
+                result.push_back({*it1, *it2});
+            return result;
         }
 
-        double numerator = average(numeratorList);
-        double denumerator = average(denumeratorList);
+        double    squaredEuclideanNorom (const Column& i_inp) {
+            double  nrm = 0;
+            i_inp.for_each([&nrm](double x){nrm += x*x;});
+            return nrm;
+        }
 
-        if (denumerator <= 0)
-            throw std::runtime_error("nrmse -> prediction failed or input data did not have any difference");
-        
-        return sqrt(numerator / denumerator);
-    }
+        double    nrmse (const SingleData& i_predicted, const SingleData& i_etalon) {
+            if (i_predicted.size() < i_etalon.size())
+                throw std::runtime_error("nrmse -> not enough etalon data");
+            
+            SingleVector avrgEtalon = average(i_etalon);
+            DoubleContainer numeratorList, denumeratorList;
 
 
+            auto predIter = i_predicted.begin();
+            auto etalIter = i_etalon.begin();
+            for (;predIter!=i_predicted.end() && etalIter!=i_etalon.end(); ++predIter, ++etalIter) {
+                numeratorList.push_back(squaredEuclideanNorom(*predIter - *etalIter));
+                denumeratorList.push_back(squaredEuclideanNorom(*predIter - avrgEtalon));
+            }
+
+            double numerator = average(numeratorList);
+            double denumerator = average(denumeratorList);
+
+            if (denumerator <= 0)
+                throw std::runtime_error("nrmse -> prediction failed or input data did not have any difference");
+            
+            return sqrt(numerator / denumerator);
+        }
+
+        void      plot(const SingleData& i_plotData, const std::string& i_dataFile, const std::string& i_settinsgFile) {
+            std::ofstream dataFile(i_dataFile);
+
+            for (const auto& v: i_plotData)
+                printVectorToFile(v, dataFile);
+            
+            dataFile.close();
+            
+            std::ofstream plotFile (i_settinsgFile);
+            plotFile << "plot \'" << i_dataFile << "\'\npause -1";
+            plotFile.close();
+            std::string command("gnuplot " + i_settinsgFile);
+            INFO_LOG(command);
+            system(command.c_str());
+        }
 
     }
 }

@@ -3,7 +3,7 @@
 
 namespace nn {
 
-    BasicReservoir::BasicReservoir (int i_neuronsAmount, double i_density, double i_radius, Activation i_func) 
+    BasicReservoir::BasicReservoir (int i_neuronsAmount, double i_density, double i_radius, Activation i_func)
         : BasicUnit(i_neuronsAmount, i_func), d_state(MathVector(Column, zeros, i_neuronsAmount)), d_leakRate(0.85)
     {
         d_recurMatrix = RandnSpMatrix(d_neuronsAmount, d_neuronsAmount, i_density);

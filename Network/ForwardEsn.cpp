@@ -20,52 +20,52 @@ namespace nn {
         Column resOut = d_reservoir->forward(i_initialVecor);
         d_readout->init({resOut});
     }
-    
+
     void    ForwardEsn::skip(const MultipleData& i_data) {
         for(const auto& mpV : i_data)
             d_reservoir->forward(mpV);
     }
-    
+
     void    ForwardEsn::learn(const MultipleDataSet& i_dataSet) {
         MultipleData resOut;
         for(const auto& mpV : i_dataSet.first)
             resOut.push_back({d_reservoir->forward(mpV)});
-        
+
         MultipleDataSet rdoutSet{resOut, i_dataSet.second};
         AlgorithmPtr ridgeAlg(new RidgeRegressionAlgorithm(rdoutSet));
         d_readout->learn(ridgeAlg.get());
     }
-    
+
     void    ForwardEsn::test(const DataSet& i_dataSet) {
         MultipleData resOut;
         for(const auto& mpV : i_dataSet.first)
             resOut.push_back({d_reservoir->forward({mpV})});
-        
+
         SingleData result;
         for(const auto& mpV : resOut)
             result.push_back(d_readout->forward({mpV}));
-        
+
         INFO_LOG("nrmse : " << fn::nrmse(result, i_dataSet.second));
     }
-    
+
     void    ForwardEsn::createUnits() {
 
     }
-    
+
 }
 
 
 // int main (int argc, char* argv[]) {
 
-    
-    
+
+
 //     try{
-//         nn::UnitsList units 
+//         nn::UnitsList units
 //             {
 //                new nn::BasicReservoir(400, 0.03, 1.2, [](double x)->double{return 1.0/(1+exp(-x));}),
 //                new nn::BasicUnit(1)
 //             };
-        
+
 //         nn::ForwardEsn net(units);
 
 //         nn::DataSetLoader   loader(argv[1]);
@@ -83,7 +83,7 @@ namespace nn {
 //         MultipleDataSet learnMulDs{learnMul, learnDs.second};
 
 //         net.start(skipMul, learnMulDs, testDs);
-        
+
 //     } catch (std:: exception& e) {
 //         ERROR_LOG(e.what());
 //     }
